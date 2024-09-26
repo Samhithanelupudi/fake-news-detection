@@ -28,6 +28,8 @@ The dataset consists of news articles labeled as fake or real. Key features of t
 4. **Model Training**: 
    - Trained a Logistic Regression model and an LSTM model using the processed dataset.
 5. **Model Evaluation**: Evaluated model performance using metrics like accuracy, precision, recall, and F1 score.
+6. Access cleaned Datasets
+https://drive.google.com/drive/folders/1dD0kQOT00EM-YjQ9sxeJLCBZ9C8VJ9LB?usp=sharing
 
 ## Project Insights
 - The Logistic Regression model achieved high accuracy.
