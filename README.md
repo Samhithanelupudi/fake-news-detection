@@ -30,7 +30,7 @@ The dataset consists of news articles labeled as fake or real. Key features of t
 5. **Model Evaluation**: Evaluated model performance using metrics like accuracy, precision, recall, and F1 score.
 
 ## Project Insights
-- The Logistic Regression model achieved an accuracy of XX%.
+- The Logistic Regression model achieved high accuracy.
 - The LSTM model demonstrated improved performance, especially in classifying longer articles.
 - Sentiment analysis contributed positively to the model's ability to discern fake news.
 
@@ -42,6 +42,4 @@ The dataset consists of news articles labeled as fake or real. Key features of t
 ## How to Access the Project
 Clone this repository and run the Jupyter notebooks provided to see the model in action.
 
-## Contact
-For any questions or inquiries, feel free to reach out: [your email address]
 
