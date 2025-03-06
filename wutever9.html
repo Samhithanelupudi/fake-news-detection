@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Data Visualization</title>
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+</head>
+
+<body>
+    <h2>Simple Column Chart</h2>
+    <div id="simpleChart" style="height: 300px; width: 80%;"></div>
+    <h2>Stacked Column Chart</h2>
+    <div id="stackedChart" style="height: 300px; width: 80%;"></div>
+    <h2>Column Chart for Four Age Groups</h2>
+    <div id="ageGroupChart" style="height: 300px; width: 80%;"></div>
+    <script>
+        const data = [{
+            age: "0-18",
+            diabetes: 40,
+            hypertension: 30,
+            cancer: 20
+        }, {
+            age: "19-35",
+            diabetes: 60,
+            hypertension: 20,
+            cancer: 30
+        }, {
+            age: "36-50",
+            diabetes: 70,
+            hypertension: 50,
+            cancer: 40
+        }, {
+            age: "51+",
+            diabetes: 80,
+            hypertension: 60,
+            cancer: 50
+        }];
+        const colors = ["tomato", "skyblue", "violet", "limegreen"];
+
+        function createChart(container, title, type, stacked = false) {
+            new CanvasJS.Chart(container, {
+                title: {
+                    text: title
+                },
+                data: stacked ? [{
+                    type,
+                    name: "Diabetes",
+                    showInLegend: true,
+                    dataPoints: data.map((d, i) => ({
+                        label: d.age,
+                        y: d.diabetes,
+                        color: colors[i]
+                    }))
+                }, {
+                    type,
+                    name: "Hypertension",
+                    showInLegend: true,
+                    dataPoints: data.map((d, i) => ({
+                        label: d.age,
+                        y: d.hypertension,
+                        color: colors[(i + 1) % colors.length]
+                    }))
+                }, {
+                    type,
+                    name: "Cancer",
+                    showInLegend: true,
+                    dataPoints: data.map((d, i) => ({
+                        label: d.age,
+                        y: d.cancer,
+                        color: colors[(i + 2) % colors.length]
+                    }))
+                }] : [{
+                    type,
+                    dataPoints: data.map((d, i) => ({
+                        label: d.age,
+                        y: d.diabetes,
+                        color: colors[i]
+                    }))
+                }]
+            }).render();
+        }
+        createChart("simpleChart", "Diabetes Cases by Age Group", "column");
+        createChart("stackedChart", "Healthcare Cases by Age Group (Stacked)", "stackedColumn", true);
+        createChart("ageGroupChart", "Healthcare Cases Comparison", "column", true);
+    </script>
+</body>
+
+</html>
