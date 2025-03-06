@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Line Chart</title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+    <h3>Line Chart</h3>
+    <div id="line_chart" style="width: 500px; height: 300px;"></div>
+
+    <script>
+        google.charts.load('current', {
+            packages: ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year', 'Performance'],
+                ['2021', 80],
+                ['2022', 85],
+                ['2023', 90]
+            ]);
+
+            var options = {
+                title: 'Student Performance',
+                curveType: 'function',
+                legend: {
+                    position: 'bottom'
+                }
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('line_chart'));
+            chart.draw(data, options);
+        }
+    </script>
+</body>
+
+</html>

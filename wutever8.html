@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Data Table & Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #chartContainer {
+            width: 300px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="file" id="jsonFile" accept=".json">
+    <table border="1" id="dataTable"></table>
+    <div id="chartContainer"><canvas id="dataChart"></canvas></div>
+
+    <script>
+        document.getElementById('jsonFile').addEventListener('change', e => {
+                    const reader = new FileReader();
+                    reader.onload = event => {
+                            const jsonData = JSON.parse(event.target.result);
+                            if (!jsonData.length) return;
+
+                            let [headers, ...data] = [Object.keys(jsonData[0]), ...jsonData.map(Object.values)];
+                            document.getElementById("dataTable").innerHTML = `<tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>` +
+                    data.map(row => `<tr>${row.map(d => `<td>${d}</td>`).join('')}</tr>`).join('');
+                
+                new Chart(dataChart, {
+                    type: "bar",
+                    data: { labels: data.map(row => row[0]), datasets: [{ data: data.map(row => +row[1] || 0), backgroundColor: "blue" }] },
+                    options: { responsive: false, maintainAspectRatio: false }
+                });
+            };
+            reader.readAsText(e.target.files[0]);
+        });
+    </script>
+</body>
+
+</html>

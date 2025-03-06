@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Donut Chart</title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+    <h3>Donut Chart - Student Categories</h3>
+    <div id="donut_chart" style="width: 500px; height: 300px;"></div>
+
+    <script>
+        google.charts.load('current', {
+            packages: ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Category', 'Students'],
+                ['A Grade', 50],
+                ['B Grade', 30],
+                ['C Grade', 20]
+            ]);
+
+            var options = {
+                title: 'Student Grades',
+                pieHole: 0.4
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('donut_chart'));
+            chart.draw(data, options);
+        }
+    </script>
+</body>
+
+</html>

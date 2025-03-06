@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pie Charts</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <svg width="600" height="300"></svg>
+
+    <script>
+        const datasets = [{
+            title: "2024",
+            values: [10, 20, 30],
+            labels: ["A", "B", "C"]
+        }, {
+            title: "2025",
+            values: [15, 25, 35],
+            labels: ["A", "B", "C"]
+        }];
+
+        const colors = d3.scaleOrdinal(d3.schemeCategory10);
+        const svg = d3.select("svg");
+
+        datasets.forEach((dataset, index) => {
+            const g = svg.append("g").attr("transform", `translate(${150 + index * 250}, 150)`);
+            const pie = d3.pie();
+            const arc = d3.arc().innerRadius(0).outerRadius(80);
+
+            g.selectAll("path")
+                .data(pie(dataset.values))
+                .enter().append("path")
+                .attr("d", arc)
+                .attr("fill", (d, i) => colors(i));
+
+            // Percentage labels
+            g.selectAll("text")
+                .data(pie(dataset.values))
+                .enter().append("text")
+                .attr("transform", d => `translate(${arc.centroid(d)})`)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "10px")
+                .attr("fill", "white")
+                .text(d => `${Math.round(d.data / d3.sum(dataset.values) * 100)}%`);
+
+            g.append("text")
+                .attr("y", -100).attr("text-anchor", "middle")
+                .attr("font-size", "12px").text(dataset.title);
+        });
+
+        // Legend
+        const legend = svg.append("g").attr("transform", `translate(500, 100)`);
+        datasets[0].labels.forEach((label, i) => {
+            legend.append("rect").attr("y", i * 15).attr("width", 10).attr("height", 10).attr("fill", colors(i));
+            legend.append("text").attr("x", 15).attr("y", i * 15 + 9).attr("font-size", "10px").text(label);
+        });
+    </script>
+</body>
+
+</html>
